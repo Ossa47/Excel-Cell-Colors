@@ -1,0 +1,27 @@
+Sub ExtractCellCodesByColor()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim bgColor As Long
+    Dim letterColumn As Range
+    Dim letter As String
+    
+    ' Set the worksheet where your data is located
+    Set ws = ThisWorkbook.Sheets("Sheet1") ' Change "Sheet1" to your sheet name
+    
+    ' Set the entire sheet as the range
+    Set letterColumn = ws.UsedRange.Columns(1) ' Assuming letters are in column A
+    
+    ' Loop through each cell in the entire sheet
+    For Each cell In ws.UsedRange
+        ' Get the background color of the cell
+        bgColor = cell.Interior.Color
+        
+        ' Check if the cell has any background color (not white)
+        If bgColor <> RGB(255, 255, 255) Then
+            ' Get the corresponding letter from the first column
+            letter = letterColumn.Cells(cell.Row, 1).Value
+            Debug.Print "Cell " & cell.Address & ": Letter " & letter
+            ' You can modify this line to store the letter in another location or perform other actions
+        End If
+    Next cell
+End Sub
